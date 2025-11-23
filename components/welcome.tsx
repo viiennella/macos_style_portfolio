@@ -4,6 +4,8 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+gsap.registerPlugin(useGSAP);
+
 const FONT_WEIGHTS = {
   subtitle: {
     min: 100,
@@ -45,6 +47,7 @@ function setupTextHover(container: HTMLElement, type: "subtitle" | "title") {
       fontVariationSettings: `'wght' ${weight}`,
       duration,
       ease: "power2.out",
+      overwrite: "auto",
     });
   }
 
@@ -79,17 +82,20 @@ export function Welcome() {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
-  useGSAP(() => {
-    const cleanupSubtitle =
-      subtitleRef.current && setupTextHover(subtitleRef.current, "subtitle");
-    const cleanupTitle =
-      titleRef.current && setupTextHover(titleRef.current, "title");
+  useGSAP(
+    () => {
+      const cleanupSubtitle =
+        subtitleRef.current && setupTextHover(subtitleRef.current, "subtitle");
+      const cleanupTitle =
+        titleRef.current && setupTextHover(titleRef.current, "title");
 
-    return () => {
-      cleanupSubtitle && cleanupSubtitle();
-      cleanupTitle && cleanupTitle();
-    };
-  }, []);
+      return () => {
+        cleanupSubtitle?.();
+        cleanupTitle?.();
+      };
+    },
+    { dependencies: [] }
+  );
 
   return (
     <section id="welcome">
