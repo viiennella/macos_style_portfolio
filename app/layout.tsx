@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/navBar";
+import { Dock } from "@/components/dock";
 
 export const metadata: Metadata = {
   title: "Macbook Style Portfolio",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <main>
           <NavBar />
           {children}
+          <Dock />
         </main>
       </body>
     </html>
