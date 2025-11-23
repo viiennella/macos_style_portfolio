@@ -16,7 +16,7 @@ export default function WindowWrapper<P extends object = Record<string, never>>(
   function Wrapped(props: P) {
     const { focusWindow, windows } = useWindowStore();
     const { isOpen, zIndex } = windows[windowKey];
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLElement>(null);
 
     useGSAP(() => {
       const element = ref.current;
