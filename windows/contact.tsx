@@ -4,6 +4,14 @@ import WindowWrapper from "@/hoc/windowWrapper";
 import { socials } from "@/constants/constants";
 import Link from "next/link";
 
+/**
+ * Render a contact window with a header, profile image, contact information, and social links.
+ *
+ * Renders window controls, a circular profile image, a prompt and email address, and a list of social items
+ * (each rendered as a linked icon and label) using the imported `socials` data.
+ *
+ * @returns A React element containing the contact window UI: header, profile image, contact text, email, and social links.
+ */
 function Contact() {
   return (
     <>
