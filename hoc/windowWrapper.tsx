@@ -18,26 +18,38 @@ export default function WindowWrapper<P extends object = Record<string, never>>(
 
     useGSAP(() => {
       const element = ref.current;
-      if (!element || !isOpen) return;
+      if (!element) return;
 
-      element.style.display = "block";
+      if (isOpen) {
+        element.style.display = "block";
 
-      gsap.fromTo(
-        element,
-        {
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            y: 40,
+            scale: 0.8,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.2,
+            ease: "power3.out",
+            overwrite: "auto",
+          }
+        );
+      } else {
+        gsap.to(element, {
           opacity: 0,
-          y: 40,
           scale: 0.8,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.2,
-          ease: "power3.out",
-          overwrite: "auto",
-        }
-      );
+          duration: 0.15,
+          ease: "power3.in",
+          onComplete: () => {
+            element.style.display = "none";
+          },
+        });
+      }
     }, [isOpen]);
 
     useGSAP(() => {
@@ -52,13 +64,6 @@ export default function WindowWrapper<P extends object = Record<string, never>>(
         instance.kill();
       };
     });
-
-    useLayoutEffect(() => {
-      const element = ref.current;
-      if (!element) return;
-
-      element.style.display = isOpen ? "block" : "none";
-    }, [isOpen]);
 
     return (
       <section id={windowKey} ref={ref} style={{ zIndex }} className="absolute">
