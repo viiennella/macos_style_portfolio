@@ -1,13 +1,18 @@
 "use client";
+import { useRef } from "react";
+import Image from "next/image";
 
 import { Tooltip } from "react-tooltip";
-import { dockApps } from "@/constants/constants";
-import Image from "next/image";
-import { useRef } from "react";
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+import { dockApps, WINDOW_CONFIG } from "@/constants/constants";
+import useWindowStore from "@/store/window";
+
 export function Dock() {
+  const { openWindow, closeWindow, windows } = useWindowStore();
+
   const dockRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -65,7 +70,21 @@ export function Dock() {
     };
   }, []);
 
-  const toggleApp = (id: string, canOpen: boolean) => {};
+  const toggleApp = (id: string, canOpen: boolean) => {
+    if (!canOpen) return;
+
+    if (id in WINDOW_CONFIG) {
+      const key = id as keyof typeof WINDOW_CONFIG;
+      const window = windows[key];
+      const isOpen = window.isOpen;
+
+      if (isOpen) {
+        closeWindow(key);
+      } else {
+        openWindow(key);
+      }
+    }
+  };
 
   return (
     <section id="dock">
