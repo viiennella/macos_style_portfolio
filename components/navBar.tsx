@@ -4,9 +4,12 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { navLinks, navIcons } from "../constants/constants";
+import useWindowStore from "@/store/window";
 
 export function NavBar() {
   const [time, setTime] = useState(dayjs());
+
+  const { openWindow } = useWindowStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,8 +39,9 @@ export function NavBar() {
             <li
               key={item.id}
               className="cursor-default hover:bg-white/20 px-2 py-0.5 rounded transition-colors"
+              onClick={() => openWindow(item.type)}
             >
-              {item.name}
+              <p>{item.name}</p>
             </li>
           ))}
         </ul>

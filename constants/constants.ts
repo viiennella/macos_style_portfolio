@@ -1,4 +1,21 @@
-const navLinks = [
+/**
+ * Unique identifiers for each window type in the OS.
+ */
+export type WindowId =
+  | "finder"
+  | "contact"
+  | "resume"
+  | "safari"
+  | "photos"
+  | "terminal"
+  | "txtfile"
+  | "imgfile";
+
+/**
+ * Navigation links for the top menu bar.
+ * Each link has an ID, display name, and a type that corresponds to a window key.
+ */
+const navLinks: { id: number; name: string; type: WindowId }[] = [
   {
     id: 1,
     name: "Projects",
@@ -16,6 +33,10 @@ const navLinks = [
   },
 ];
 
+/**
+ * Icons displayed in the top right of the menu bar.
+ * Includes system status icons like WiFi, Search, User, and Control Center.
+ */
 const navIcons = [
   {
     id: 1,
@@ -35,6 +56,10 @@ const navIcons = [
   },
 ];
 
+/**
+ * Applications displayed in the bottom dock.
+ * Defines the app ID, display name, icon path, and whether it can open a window.
+ */
 const dockApps = [
   {
     id: "finder",
@@ -74,10 +99,15 @@ const dockApps = [
   },
 ];
 
+/**
+ * List of blog posts displayed in the Safari window.
+ * Contains metadata for each post including date, title, image, and external link.
+ */
 const blogPosts = [
   {
     id: 1,
     date: "Sep 2, 2025",
+    isoDate: "2025-09-02",
     title:
       "TypeScript Explained: What It Is, Why It Matters, and How to Master It",
     image: "/images/blog1.png",
@@ -86,6 +116,7 @@ const blogPosts = [
   {
     id: 2,
     date: "Aug 28, 2025",
+    isoDate: "2025-08-28",
     title: "The Ultimate Guide to Mastering Three.js for 3D Development",
     image: "/images/blog2.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-three-js-for-3d-development",
@@ -93,12 +124,17 @@ const blogPosts = [
   {
     id: 3,
     date: "Aug 15, 2025",
+    isoDate: "2025-08-15",
     title: "The Ultimate Guide to Mastering GSAP Animations",
     image: "/images/blog3.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations",
   },
 ];
 
+/**
+ * Technical skills categorized by domain.
+ * Used in the "Skills" (Terminal) window to display proficiency areas.
+ */
 const techStack = [
   {
     category: "Frontend",
@@ -126,6 +162,10 @@ const techStack = [
   },
 ];
 
+/**
+ * Social media links and platform profiles.
+ * Includes configuration for icons, background colors, and profile URLs.
+ */
 const socials = [
   {
     id: 1,
@@ -157,6 +197,10 @@ const socials = [
   },
 ];
 
+/**
+ * Categories/Folders displayed in the Photos/Gallery window.
+ * Represents different photo collections or albums.
+ */
 const photosLinks = [
   {
     id: 1,
@@ -185,22 +229,30 @@ const photosLinks = [
   },
 ];
 
+/**
+ * Image assets displayed in the Gallery.
+ * Simple list of image paths for the photo grid.
+ */
 const gallery = [
   {
     id: 1,
     img: "/images/gal1.png",
+    alt: "Mountain landscape with sunset",
   },
   {
     id: 2,
     img: "/images/gal2.png",
+    alt: "City skyline at night",
   },
   {
     id: 3,
     img: "/images/gal3.png",
+    alt: "Abstract geometric shapes",
   },
   {
     id: 4,
     img: "/images/gal4.png",
+    alt: "Forest path in autumn",
   },
 ];
 
@@ -215,7 +267,7 @@ export {
   gallery,
 };
 
-const WORK_LOCATION = {
+const WORK_LOCATION: FinderLocation = {
   id: 1,
   type: "work",
   name: "Work",
@@ -383,7 +435,7 @@ const WORK_LOCATION = {
   ],
 };
 
-const ABOUT_LOCATION = {
+const ABOUT_LOCATION: FinderLocation = {
   id: 2,
   type: "about",
   name: "About me",
@@ -436,7 +488,7 @@ const ABOUT_LOCATION = {
   ],
 };
 
-const RESUME_LOCATION = {
+const RESUME_LOCATION: FinderLocation = {
   id: 3,
   type: "resume",
   name: "Resume",
@@ -455,7 +507,7 @@ const RESUME_LOCATION = {
   ],
 };
 
-const TRASH_LOCATION = {
+const TRASH_LOCATION: FinderLocation = {
   id: 4,
   type: "trash",
   name: "Trash",
@@ -483,16 +535,71 @@ const TRASH_LOCATION = {
   ],
 };
 
-export const locations = {
+/**
+ * File system structure for the Finder window.
+ * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
+ */
+/**
+ * Keys for the different locations in Finder.
+ */
+export type LocationKey = "work" | "about" | "resume" | "trash";
+
+type FileType = "txt" | "url" | "img" | "fig" | "pdf";
+
+export interface FinderItem {
+  id: number;
+  name: string;
+  icon: string;
+  kind: "file" | "folder";
+  fileType?: FileType;
+  position?: string;
+  windowPosition?: string;
+  imageUrl?: string;
+  href?: string;
+  description?: string[];
+  subtitle?: string;
+  image?: string;
+  children?: FinderItem[];
+}
+
+export interface FinderLocation {
+  id: number;
+  type: LocationKey;
+  name: string;
+  icon: string;
+  kind: "folder";
+  children: FinderItem[];
+}
+
+export const locations: Record<LocationKey, FinderLocation> = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
   resume: RESUME_LOCATION,
   trash: TRASH_LOCATION,
 };
 
+/**
+ * Starting Z-Index for windows.
+ * Ensures windows appear above desktop elements but manages stacking order.
+ */
 const INITIAL_Z_INDEX = 1000;
 
-const WINDOW_CONFIG = {
+/**
+ * Initial state configuration for all windows.
+ * Defines the default state (closed, z-index, data) for each application window.
+ */
+
+type WindowData =
+  | { type: "finder"; location: LocationKey }
+  | { type: "safari"; posts: typeof blogPosts }
+  | { type: "photos"; gallery: typeof gallery }
+  | { type: "terminal"; stack: typeof techStack }
+  | null;
+
+const WINDOW_CONFIG: Record<
+  WindowId,
+  { isOpen: boolean; zIndex: number; data: WindowData }
+> = {
   finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   resume: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
