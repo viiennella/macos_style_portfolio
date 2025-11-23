@@ -31,6 +31,7 @@ function Finder() {
               }}
               tabIndex={0}
               role="button"
+              aria-selected={location.id === activeLocation?.id}
               className={clsx(
                 location.id === activeLocation?.id ? "active" : "not-active"
               )}
@@ -73,21 +74,14 @@ function Finder() {
         </div>
         <ul className="content">
           {activeLocation?.children?.map((item) => (
-            <li
-              key={item.id}
-              className={item.position}
-              onClick={() => openItem(item)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  openItem(item);
-                }
-              }}
-              tabIndex={0}
-              role="button"
-            >
-              <Image src={item.icon} alt={item.name} width={20} height={20} />
-              <p className="text-sm truncate font-medium">{item.name}</p>
+            <li key={item.id} className={item.position}>
+              <button
+                onClick={() => openItem(item)}
+                className="flex flex-col items-center gap-3 group"
+              >
+                <Image src={item.icon} alt={item.name} width={20} height={20} />
+                <p className="text-sm truncate font-medium">{item.name}</p>
+              </button>
             </li>
           ))}
         </ul>
