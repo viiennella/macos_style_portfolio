@@ -6,7 +6,7 @@ import Image from "next/image";
 
 function TextFile() {
   const { windows } = useWindowStore();
-  const data = windows.txtfile.data as FinderItem;
+  const data = windows.txtfile?.data as FinderItem | undefined;
 
   if (!data) return null;
 

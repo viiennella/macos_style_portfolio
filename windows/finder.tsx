@@ -7,6 +7,8 @@ import Image from "next/image";
 import clsx from "clsx";
 import useWindowStore from "@/store/window";
 
+const FAVORITES_LOCATIONS = Object.values(locations);
+
 function Finder() {
   const { activeLocation, setActiveLocation } = useLocationStore();
 
@@ -21,6 +23,14 @@ function Finder() {
             <li
               key={location.id}
               onClick={() => setActiveLocation(location)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveLocation(location);
+                }
+              }}
+              tabIndex={0}
+              role="button"
               className={clsx(
                 location.id === activeLocation?.id ? "active" : "not-active"
               )}
@@ -41,10 +51,11 @@ function Finder() {
   }
 
   function openItem(item: FinderItem) {
-    if (item.name === "Resume.pdf") return openWindow("resume");
+    if (item.fileType === "pdf" && item.href?.includes("resume"))
+      return openWindow("resume");
     if (item.kind === "folder") return setActiveLocation(item);
     if (item.fileType && ["fig", "url"].includes(item.fileType) && item.href)
-      return window.open(item.href, "_blank");
+      return window.open(item.href, "_blank", "noopener,noreferrer");
     if (item.fileType === "txt") return openWindow("txtfile", item);
     if (item.fileType === "img") return openWindow("imgfile", item);
   }
@@ -57,7 +68,7 @@ function Finder() {
       </div>
       <div className="bg-white flex h-full">
         <div className="sidebar">
-          {renderList("Favorites", Object.values(locations))}
+          {renderList("Favorites", FAVORITES_LOCATIONS)}
           {renderList("Work", locations.work.children)}
         </div>
         <ul className="content">
@@ -66,6 +77,14 @@ function Finder() {
               key={item.id}
               className={item.position}
               onClick={() => openItem(item)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openItem(item);
+                }
+              }}
+              tabIndex={0}
+              role="button"
             >
               <Image src={item.icon} alt={item.name} width={20} height={20} />
               <p className="text-sm truncate font-medium">{item.name}</p>
