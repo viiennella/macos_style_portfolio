@@ -8,6 +8,7 @@ import { Draggable } from "gsap/Draggable";
 import FinderWindow from "@/windows/finder";
 import TextFileWindow from "@/windows/textFile";
 import ImageFileWindow from "@/windows/imageFile";
+import ContactWindow from "@/windows/contact";
 
 const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
@@ -23,6 +24,7 @@ export default function Home() {
       <FinderWindow />
       <TextFileWindow />
       <ImageFileWindow />
+      <ContactWindow />
     </div>
   );
 }
