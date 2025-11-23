@@ -1,8 +1,21 @@
 /**
+ * Unique identifiers for each window type in the OS.
+ */
+export type WindowId =
+  | "finder"
+  | "contact"
+  | "resume"
+  | "safari"
+  | "photos"
+  | "terminal"
+  | "txtfile"
+  | "imgfile";
+
+/**
  * Navigation links for the top menu bar.
  * Each link has an ID, display name, and a type that corresponds to a window key.
  */
-const navLinks = [
+const navLinks: { id: number; name: string; type: WindowId }[] = [
   {
     id: 1,
     name: "Projects",
@@ -94,6 +107,7 @@ const blogPosts = [
   {
     id: 1,
     date: "Sep 2, 2025",
+    isoDate: "2025-09-02",
     title:
       "TypeScript Explained: What It Is, Why It Matters, and How to Master It",
     image: "/images/blog1.png",
@@ -102,6 +116,7 @@ const blogPosts = [
   {
     id: 2,
     date: "Aug 28, 2025",
+    isoDate: "2025-08-28",
     title: "The Ultimate Guide to Mastering Three.js for 3D Development",
     image: "/images/blog2.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-three-js-for-3d-development",
@@ -109,6 +124,7 @@ const blogPosts = [
   {
     id: 3,
     date: "Aug 15, 2025",
+    isoDate: "2025-08-15",
     title: "The Ultimate Guide to Mastering GSAP Animations",
     image: "/images/blog3.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations",
@@ -221,18 +237,22 @@ const gallery = [
   {
     id: 1,
     img: "/images/gal1.png",
+    alt: "Gallery Image 1",
   },
   {
     id: 2,
     img: "/images/gal2.png",
+    alt: "Gallery Image 2",
   },
   {
     id: 3,
     img: "/images/gal3.png",
+    alt: "Gallery Image 3",
   },
   {
     id: 4,
     img: "/images/gal4.png",
+    alt: "Gallery Image 4",
   },
 ];
 
@@ -519,11 +539,45 @@ const TRASH_LOCATION = {
  * File system structure for the Finder window.
  * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
  */
-export const locations = {
-  work: WORK_LOCATION,
-  about: ABOUT_LOCATION,
-  resume: RESUME_LOCATION,
-  trash: TRASH_LOCATION,
+/**
+ * Keys for the different locations in Finder.
+ */
+export type LocationKey = "work" | "about" | "resume" | "trash";
+
+export interface FinderItem {
+  id: number;
+  name: string;
+  icon: string;
+  kind: "file" | "folder";
+  fileType?: string;
+  position?: string;
+  windowPosition?: string;
+  imageUrl?: string;
+  href?: string;
+  description?: string[];
+  subtitle?: string;
+  image?: string;
+  children?: FinderItem[];
+}
+
+export interface FinderLocation {
+  id: number;
+  type: string;
+  name: string;
+  icon: string;
+  kind: "folder";
+  children: FinderItem[];
+}
+
+/**
+ * File system structure for the Finder window.
+ * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
+ */
+export const locations: Record<LocationKey, FinderLocation> = {
+  work: WORK_LOCATION as FinderLocation,
+  about: ABOUT_LOCATION as FinderLocation,
+  resume: RESUME_LOCATION as FinderLocation,
+  trash: TRASH_LOCATION as FinderLocation,
 };
 
 /**
@@ -536,7 +590,14 @@ const INITIAL_Z_INDEX = 1000;
  * Initial state configuration for all windows.
  * Defines the default state (closed, z-index, data) for each application window.
  */
-const WINDOW_CONFIG = {
+/**
+ * Initial state configuration for all windows.
+ * Defines the default state (closed, z-index, data) for each application window.
+ */
+const WINDOW_CONFIG: Record<
+  WindowId,
+  { isOpen: boolean; zIndex: number; data: any }
+> = {
   finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   resume: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },

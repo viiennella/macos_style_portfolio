@@ -34,11 +34,17 @@ function Safari() {
     <>
       <div id="window-header">
         <WindowControls target="safari" />
-        <PanelLeft className="ml-10 icon" />
+        <button aria-label="Sidebar">
+          <PanelLeft className="ml-10 icon" />
+        </button>
 
         <div className="flex items-center gap-1 ml-5">
-          <ChevronLeft className="icon" />
-          <ChevronRight className="icon" />
+          <button aria-label="Go back">
+            <ChevronLeft className="icon" />
+          </button>
+          <button aria-label="Go forward">
+            <ChevronRight className="icon" />
+          </button>
         </div>
         <div className="flex-1 flex-center gap-3">
           <ShieldHalf className="icon" />
@@ -47,14 +53,21 @@ function Safari() {
             <input
               type="text"
               placeholder="Search or enter website name"
+              aria-label="Search or enter website name"
               className="flex-1"
             />
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <Share className="icon" />
-          <Plus className="icon" />
-          <Copy className="icon" />
+          <button aria-label="Share">
+            <Share className="icon" />
+          </button>
+          <button aria-label="New tab">
+            <Plus className="icon" />
+          </button>
+          <button aria-label="Show tabs">
+            <Copy className="icon" />
+          </button>
         </div>
       </div>
       <div className="blog">
@@ -68,6 +81,7 @@ function Safari() {
                   alt={post.title}
                   width={500}
                   height={500}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
               <div className="content">
