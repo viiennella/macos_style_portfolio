@@ -4,8 +4,6 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP);
-
 const FONT_WEIGHTS = {
   subtitle: {
     min: 100,
@@ -32,7 +30,7 @@ function renderText(text: string, className: string, baseWeight: number = 400) {
 }
 
 function setupTextHover(container: HTMLElement, type: "subtitle" | "title") {
-  if (!container) return;
+  if (!container) return () => {};
 
   const letters = container.querySelectorAll("span");
 
@@ -96,7 +94,7 @@ export function Welcome() {
   return (
     <section id="welcome">
       <p ref={subtitleRef}>
-        {renderText("Hey, I'm your mom. Welcome to my", "text-3xl", 100)}
+        {renderText("Hey, I'm your Desktop. Welcome to my", "text-3xl", 100)}
       </p>
       <h1 ref={titleRef} className="mt-7">
         {renderText("Portfolio", "text-9xl italic")}
