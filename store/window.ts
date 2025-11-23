@@ -7,7 +7,7 @@ export type WindowKey = keyof typeof WINDOW_CONFIG;
 interface WindowItem {
   isOpen: boolean;
   zIndex: number;
-  data: any;
+  data: unknown;
 }
 
 interface WindowState {
@@ -16,7 +16,7 @@ interface WindowState {
 }
 
 interface WindowActions {
-  openWindow: (key: WindowKey, data?: any) => void;
+  openWindow: (key: WindowKey, data?: unknown) => void;
   closeWindow: (key: WindowKey) => void;
   focusWindow: (key: WindowKey) => void;
 }

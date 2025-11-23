@@ -5,8 +5,13 @@ import { useGSAP } from "@gsap/react";
 import { useLayoutEffect, useRef } from "react";
 import { Draggable } from "gsap/Draggable";
 
-export default function WindowWrapper(Component: any, windowKey: WindowKey) {
-  function Wrapped(props: any) {
+import type { ComponentType } from "react";
+
+export default function WindowWrapper<P extends Record<string, never> = {}>(
+  Component: ComponentType<P>,
+  windowKey: WindowKey
+) {
+  function Wrapped(props: P) {
     const { focusWindow, windows } = useWindowStore();
     const { isOpen, zIndex } = windows[windowKey];
     const ref = useRef<HTMLDivElement>(null);
