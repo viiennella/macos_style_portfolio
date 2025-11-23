@@ -5,6 +5,9 @@ import SafariWindow from "@/windows/safari";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
+import FinderWindow from "@/windows/finder";
+import TextFileWindow from "@/windows/textFile";
+import ImageFileWindow from "@/windows/imageFile";
 
 const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
@@ -17,6 +20,9 @@ export default function Home() {
       <TerminalWindow />
       <SafariWindow />
       <ResumeWindow />
+      <FinderWindow />
+      <TextFileWindow />
+      <ImageFileWindow />
     </div>
   );
 }
