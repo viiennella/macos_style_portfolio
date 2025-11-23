@@ -544,12 +544,14 @@ const TRASH_LOCATION: FinderLocation = {
  */
 export type LocationKey = "work" | "about" | "resume" | "trash";
 
+type FileType = "txt" | "url" | "img" | "fig" | "pdf";
+
 export interface FinderItem {
   id: number;
   name: string;
   icon: string;
   kind: "file" | "folder";
-  fileType?: string;
+  fileType?: FileType;
   position?: string;
   windowPosition?: string;
   imageUrl?: string;
@@ -562,17 +564,13 @@ export interface FinderItem {
 
 export interface FinderLocation {
   id: number;
-  type: string;
+  type: LocationKey;
   name: string;
   icon: string;
   kind: "folder";
   children: FinderItem[];
 }
 
-/**
- * File system structure for the Finder window.
- * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
- */
 export const locations: Record<LocationKey, FinderLocation> = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
@@ -586,10 +584,6 @@ export const locations: Record<LocationKey, FinderLocation> = {
  */
 const INITIAL_Z_INDEX = 1000;
 
-/**
- * Initial state configuration for all windows.
- * Defines the default state (closed, z-index, data) for each application window.
- */
 /**
  * Initial state configuration for all windows.
  * Defines the default state (closed, z-index, data) for each application window.

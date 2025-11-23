@@ -1,4 +1,4 @@
-# 🍎 MacOS Style Portfolio
+# 🍎 macOS Style Portfolio
 
 ![Project Banner](/public/images/wallpaper.png)
 
