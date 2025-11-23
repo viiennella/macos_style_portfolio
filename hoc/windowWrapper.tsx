@@ -7,7 +7,7 @@ import { Draggable } from "gsap/Draggable";
 
 import type { ComponentType } from "react";
 
-export default function WindowWrapper<P extends Record<string, never> = {}>(
+export default function WindowWrapper<P extends object = Record<string, never>>(
   Component: ComponentType<P>,
   windowKey: WindowKey
 ) {

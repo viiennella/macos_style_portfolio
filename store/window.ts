@@ -30,6 +30,7 @@ const useWindowStore = create<WindowStore>()(
 
     openWindow: (key, data = null) =>
       set((state) => {
+        if (!(key in state.windows)) return;
         const win = state.windows[key];
         win.isOpen = true;
         win.zIndex = state.nextZIndex;
@@ -39,6 +40,7 @@ const useWindowStore = create<WindowStore>()(
 
     closeWindow: (key) =>
       set((state) => {
+        if (!(key in state.windows)) return;
         const win = state.windows[key];
         win.isOpen = false;
         win.zIndex = INITIAL_Z_INDEX;
@@ -47,8 +49,12 @@ const useWindowStore = create<WindowStore>()(
 
     focusWindow: (key) =>
       set((state) => {
+        if (!(key in state.windows)) return;
         const win = state.windows[key];
-        win.zIndex = state.nextZIndex += 1;
+        if (win.isOpen) {
+          state.nextZIndex += 1;
+          win.zIndex = state.nextZIndex;
+        }
       }),
   })) as StateCreator<WindowStore>
 );
