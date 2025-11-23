@@ -15,6 +15,20 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+/**
+ * Safari Window Component
+ *
+ * Renders a mock Safari browser window with standard browser controls
+ * (back/forward, search bar, share/add/copy) and displays a list of
+ * developer blog posts.
+ *
+ * Features:
+ * - Window controls (close/minimize/maximize)
+ * - Mock browser navigation bar
+ * - Blog post feed with images and links
+ *
+ * @returns {JSX.Element} The rendered Safari window component
+ */
 function Safari() {
   return (
     <>

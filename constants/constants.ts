@@ -1,3 +1,7 @@
+/**
+ * Navigation links for the top menu bar.
+ * Each link has an ID, display name, and a type that corresponds to a window key.
+ */
 const navLinks = [
   {
     id: 1,
@@ -16,6 +20,10 @@ const navLinks = [
   },
 ];
 
+/**
+ * Icons displayed in the top right of the menu bar.
+ * Includes system status icons like WiFi, Search, User, and Control Center.
+ */
 const navIcons = [
   {
     id: 1,
@@ -35,6 +43,10 @@ const navIcons = [
   },
 ];
 
+/**
+ * Applications displayed in the bottom dock.
+ * Defines the app ID, display name, icon path, and whether it can open a window.
+ */
 const dockApps = [
   {
     id: "finder",
@@ -74,6 +86,10 @@ const dockApps = [
   },
 ];
 
+/**
+ * List of blog posts displayed in the Safari window.
+ * Contains metadata for each post including date, title, image, and external link.
+ */
 const blogPosts = [
   {
     id: 1,
@@ -99,6 +115,10 @@ const blogPosts = [
   },
 ];
 
+/**
+ * Technical skills categorized by domain.
+ * Used in the "Skills" (Terminal) window to display proficiency areas.
+ */
 const techStack = [
   {
     category: "Frontend",
@@ -126,6 +146,10 @@ const techStack = [
   },
 ];
 
+/**
+ * Social media links and platform profiles.
+ * Includes configuration for icons, background colors, and profile URLs.
+ */
 const socials = [
   {
     id: 1,
@@ -157,6 +181,10 @@ const socials = [
   },
 ];
 
+/**
+ * Categories/Folders displayed in the Photos/Gallery window.
+ * Represents different photo collections or albums.
+ */
 const photosLinks = [
   {
     id: 1,
@@ -185,6 +213,10 @@ const photosLinks = [
   },
 ];
 
+/**
+ * Image assets displayed in the Gallery.
+ * Simple list of image paths for the photo grid.
+ */
 const gallery = [
   {
     id: 1,
@@ -483,6 +515,10 @@ const TRASH_LOCATION = {
   ],
 };
 
+/**
+ * File system structure for the Finder window.
+ * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
+ */
 export const locations = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
@@ -490,8 +526,16 @@ export const locations = {
   trash: TRASH_LOCATION,
 };
 
+/**
+ * Starting Z-Index for windows.
+ * Ensures windows appear above desktop elements but manages stacking order.
+ */
 const INITIAL_Z_INDEX = 1000;
 
+/**
+ * Initial state configuration for all windows.
+ * Defines the default state (closed, z-index, data) for each application window.
+ */
 const WINDOW_CONFIG = {
   finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
