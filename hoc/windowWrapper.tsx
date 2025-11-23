@@ -7,6 +7,8 @@ import { Draggable } from "gsap/Draggable";
 
 import type { ComponentType } from "react";
 
+gsap.registerPlugin(Draggable);
+
 export default function WindowWrapper<P extends object = Record<string, never>>(
   Component: ComponentType<P>,
   windowKey: WindowKey
@@ -64,6 +66,12 @@ export default function WindowWrapper<P extends object = Record<string, never>>(
         instance.kill();
       };
     });
+
+    useLayoutEffect(() => {
+      if (ref.current) {
+        ref.current.style.display = isOpen ? "block" : "none";
+      }
+    }, []);
 
     return (
       <section id={windowKey} ref={ref} style={{ zIndex }} className="absolute">
