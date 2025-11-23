@@ -65,13 +65,13 @@ export function Dock() {
     };
   }, []);
 
-  const toggleApp = (app: { id: string; canOpen: boolean }) => {};
+  const toggleApp = (id: string, canOpen: boolean) => {};
 
   return (
     <section id="dock">
       <div ref={dockRef} className="dock-container">
         {dockApps.map(({ id, name, icon, canOpen }) => (
-          <div key={id} className="relative flex justify-center ">
+          <div key={id} className="relative flex justify-center">
             <button
               className="dock-icon"
               type="button"
@@ -81,14 +81,15 @@ export function Dock() {
               data-tooltip-delay-show={150}
               data-tooltip-delay-hide={150}
               disabled={!canOpen}
-              onClick={() => toggleApp({ id, canOpen })}
+              onClick={() => toggleApp(id, canOpen)}
             >
               <Image
                 src={`/images/${icon}`}
                 alt={name}
                 fill
-                loading="lazy"
+                loading="eager"
                 className={canOpen ? "" : "opacity-80"}
+                sizes="(max-width: 768px) 48px, 64px"
               />
             </button>
           </div>
