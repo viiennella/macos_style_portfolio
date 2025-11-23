@@ -15,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <NavBar />
-        {children}
+        <main>
+          <NavBar />
+          {children}
+        </main>
       </body>
     </html>
   );
