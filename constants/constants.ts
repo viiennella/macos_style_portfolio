@@ -501,6 +501,7 @@ const RESUME_LOCATION: FinderLocation = {
       icon: "/images/pdf.png",
       kind: "file",
       fileType: "pdf",
+      windowId: "resume",
       // you can add `href` if you want to open a hosted resume
       // href: "/your/resume/path.pdf",
     },
@@ -552,6 +553,7 @@ export interface FinderItem {
   icon: string;
   kind: "file" | "folder";
   fileType?: FileType;
+  windowId?: WindowId;
   position?: string;
   windowPosition?: string;
   imageUrl?: string;

@@ -10,15 +10,15 @@ import useWindowStore from "@/store/window";
 const FAVORITES_LOCATIONS = Object.values(locations);
 
 function Finder() {
-  const { activeLocation, setActiveLocation } = useLocationStore();
-
-  const { openWindow } = useWindowStore();
+  const activeLocation = useLocationStore((s) => s.activeLocation);
+  const setActiveLocation = useLocationStore((s) => s.setActiveLocation);
+  const openWindow = useWindowStore((s) => s.openWindow);
 
   function renderList(name: string, items: (FinderLocation | FinderItem)[]) {
     return (
       <div>
         <h3>{name}</h3>
-        <ul>
+        <ul role="listbox">
           {items.map((location) => (
             <li
               key={location.id}
@@ -52,8 +52,7 @@ function Finder() {
   }
 
   function openItem(item: FinderItem) {
-    if (item.fileType === "pdf" && item.href?.includes("resume"))
-      return openWindow("resume");
+    if (item.windowId === "resume") return openWindow("resume");
     if (item.kind === "folder") return setActiveLocation(item);
     if (item.fileType && ["fig", "url"].includes(item.fileType) && item.href)
       return window.open(item.href, "_blank", "noopener,noreferrer");
@@ -76,6 +75,7 @@ function Finder() {
           {activeLocation?.children?.map((item) => (
             <li key={item.id} className={item.position}>
               <button
+                type="button"
                 onClick={() => openItem(item)}
                 className="flex flex-col items-center gap-3 group"
               >
