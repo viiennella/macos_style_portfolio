@@ -237,22 +237,22 @@ const gallery = [
   {
     id: 1,
     img: "/images/gal1.png",
-    alt: "Gallery Image 1",
+    alt: "Mountain landscape with sunset",
   },
   {
     id: 2,
     img: "/images/gal2.png",
-    alt: "Gallery Image 2",
+    alt: "City skyline at night",
   },
   {
     id: 3,
     img: "/images/gal3.png",
-    alt: "Gallery Image 3",
+    alt: "Abstract geometric shapes",
   },
   {
     id: 4,
     img: "/images/gal4.png",
-    alt: "Gallery Image 4",
+    alt: "Forest path in autumn",
   },
 ];
 
@@ -267,7 +267,7 @@ export {
   gallery,
 };
 
-const WORK_LOCATION = {
+const WORK_LOCATION: FinderLocation = {
   id: 1,
   type: "work",
   name: "Work",
@@ -435,7 +435,7 @@ const WORK_LOCATION = {
   ],
 };
 
-const ABOUT_LOCATION = {
+const ABOUT_LOCATION: FinderLocation = {
   id: 2,
   type: "about",
   name: "About me",
@@ -488,7 +488,7 @@ const ABOUT_LOCATION = {
   ],
 };
 
-const RESUME_LOCATION = {
+const RESUME_LOCATION: FinderLocation = {
   id: 3,
   type: "resume",
   name: "Resume",
@@ -507,7 +507,7 @@ const RESUME_LOCATION = {
   ],
 };
 
-const TRASH_LOCATION = {
+const TRASH_LOCATION: FinderLocation = {
   id: 4,
   type: "trash",
   name: "Trash",
@@ -574,10 +574,10 @@ export interface FinderLocation {
  * Maps location keys (work, about, resume, trash) to their folder/file hierarchy.
  */
 export const locations: Record<LocationKey, FinderLocation> = {
-  work: WORK_LOCATION as FinderLocation,
-  about: ABOUT_LOCATION as FinderLocation,
-  resume: RESUME_LOCATION as FinderLocation,
-  trash: TRASH_LOCATION as FinderLocation,
+  work: WORK_LOCATION,
+  about: ABOUT_LOCATION,
+  resume: RESUME_LOCATION,
+  trash: TRASH_LOCATION,
 };
 
 /**
@@ -594,9 +594,17 @@ const INITIAL_Z_INDEX = 1000;
  * Initial state configuration for all windows.
  * Defines the default state (closed, z-index, data) for each application window.
  */
+
+type WindowData =
+  | { type: "finder"; location: LocationKey }
+  | { type: "safari"; posts: typeof blogPosts }
+  | { type: "photos"; gallery: typeof gallery }
+  | { type: "terminal"; stack: typeof techStack }
+  | null;
+
 const WINDOW_CONFIG: Record<
   WindowId,
-  { isOpen: boolean; zIndex: number; data: any }
+  { isOpen: boolean; zIndex: number; data: WindowData }
 > = {
   finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
