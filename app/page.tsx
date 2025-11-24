@@ -16,6 +16,11 @@ const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
 gsap.registerPlugin(Draggable);
 
+/**
+ * Renders the home page container that aggregates and lays out all desktop-like window components.
+ *
+ * @returns The JSX element containing the assembled window components for the home page.
+ */
 export default function Home() {
   return (
     <div>

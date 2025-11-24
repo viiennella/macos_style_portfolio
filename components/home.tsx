@@ -12,6 +12,11 @@ import useLocationStore from "@/store/location";
 gsap.registerPlugin(Draggable);
 
 const projects = locations.work?.children ?? [];
+/**
+ * Render draggable folder icons for each project and handle opening the finder for a selected project.
+ *
+ * @returns A JSX element containing a list of draggable project folder items that open the finder when clicked.
+ */
 export default function HomeFolders() {
   const { setActiveLocation } = useLocationStore();
   const { openWindow } = useWindowStore();

@@ -5,6 +5,13 @@ import useWindowStore from "@/store/window";
 import { Mail, Search } from "lucide-react";
 import Image from "next/image";
 
+/**
+ * Renders the Photos window UI with a sidebar of photo links and a clickable gallery.
+ *
+ * Displays window controls and action icons in the header, a left sidebar listing `photosLinks`, and a gallery grid built from `gallery`. Clicking a gallery item opens an image viewer window (`imgfile`) via `openWindow` using the clicked item's id and image URL.
+ *
+ * @returns The React element representing the Photos window content.
+ */
 function Photos() {
   const { openWindow } = useWindowStore();
   return (
