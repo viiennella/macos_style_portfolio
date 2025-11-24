@@ -12,6 +12,17 @@ import PhotosWindow from "@/windows/photos";
 
 const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
+gsap.registerPlugin(Draggable);
+
+/**
+ * Renders the desktop-like home view composed of multiple window components.
+ *
+ * The component returns a container with the following windows rendered in order:
+ * Welcome, TerminalWindow, SafariWindow, ResumeWindow (client-only), FinderWindow,
+ * TextFileWindow, ImageFileWindow, and ContactWindow.
+ *
+ * @returns A React element containing the assembled home UI windows
+ */
 export default function Home() {
   return (
     <div>
