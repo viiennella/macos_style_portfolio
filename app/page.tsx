@@ -12,8 +12,6 @@ import PhotosWindow from "@/windows/photos";
 
 const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
-gsap.registerPlugin(Draggable);
-
 /**
  * Renders the desktop-like home view composed of multiple window components.
  *
