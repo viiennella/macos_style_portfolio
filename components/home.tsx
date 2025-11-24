@@ -6,10 +6,10 @@ import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import Image from "next/image";
 import { Draggable } from "gsap/Draggable";
-import useWindowStore, { WindowKey } from "@/store/window";
+import useWindowStore from "@/store/window";
 import useLocationStore from "@/store/location";
 
-gsap.registerPlugin(Draggable);
+gsap.registerPlugin(useGSAP, Draggable);
 
 const projects = locations.work?.children ?? [];
 /**
@@ -26,8 +26,11 @@ export default function HomeFolders() {
     openWindow("finder");
   }
   useGSAP(() => {
-    Draggable.create(".folder");
-  }, []);
+    const draggables = Draggable.create(".folder");
+    return () => {
+      draggables.forEach((d) => d.kill());
+    };
+  }, [projects]);
   return (
     <section id="home">
       <ul>
@@ -35,10 +38,19 @@ export default function HomeFolders() {
           <li
             key={project.id}
             className={clsx("group folder", project.windowPosition)}
+            tabIndex={0}
+            role="button"
+            aria-label={`Open ${project.name} folder`}
             onClick={() => handleOpenProjectFinder(project)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleOpenProjectFinder(project);
+              }
+            }}
           >
             <Image
-              src="/images/folder.png"
+              src={project.icon}
               alt={project.name}
               width={100}
               height={100}
