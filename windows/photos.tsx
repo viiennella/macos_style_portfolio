@@ -41,7 +41,7 @@ function Photos() {
                 onClick={() =>
                   openWindow("imgfile", {
                     id: item.id,
-                    name: "Galery image",
+                    name: "Gallery image",
                     icon: "/images/image.png",
                     kind: "file",
                     fileType: "img",
