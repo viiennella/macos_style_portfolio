@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import Image from "next/image";
 import { Draggable } from "gsap/Draggable";
-import useWindowStore, { WindowKey } from "@/store/window";
+import useWindowStore from "@/store/window";
 import useLocationStore from "@/store/location";
 
 gsap.registerPlugin(Draggable);
@@ -33,7 +33,7 @@ export default function HomeFolders() {
             onClick={() => handleOpenProjectFinder(project)}
           >
             <Image
-              src="/images/folder.png"
+              src={project.icon}
               alt={project.name}
               width={100}
               height={100}
