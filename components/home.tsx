@@ -21,8 +21,11 @@ export default function HomeFolders() {
     openWindow("finder");
   }
   useGSAP(() => {
-    Draggable.create(".folder");
-  }, []);
+    const draggables = Draggable.create(".folder");
+    return () => {
+      draggables.forEach((d) => d.kill());
+    };
+  }, [projects]);
   return (
     <section id="home">
       <ul>
@@ -30,7 +33,16 @@ export default function HomeFolders() {
           <li
             key={project.id}
             className={clsx("group folder", project.windowPosition)}
+            tabIndex={0}
+            role="button"
+            aria-label={`Open ${project.name} folder`}
             onClick={() => handleOpenProjectFinder(project)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleOpenProjectFinder(project);
+              }
+            }}
           >
             <Image
               src={project.icon}
