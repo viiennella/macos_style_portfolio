@@ -9,6 +9,8 @@ import FinderWindow from "@/windows/finder";
 import TextFileWindow from "@/windows/textFile";
 import ImageFileWindow from "@/windows/imageFile";
 import ContactWindow from "@/windows/contact";
+import HomeFolders from "@/components/home";
+import PhotosWindow from "@/windows/photos";
 
 const ResumeWindow = dynamic(() => import("@/windows/resume"), { ssr: false });
 
@@ -25,6 +27,8 @@ export default function Home() {
       <TextFileWindow />
       <ImageFileWindow />
       <ContactWindow />
+      <PhotosWindow />
+      <HomeFolders />
     </div>
   );
 }
