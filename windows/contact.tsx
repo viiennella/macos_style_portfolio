@@ -14,14 +14,14 @@ function Contact() {
       <div className="p-5 space-y-5">
         <Image
           src="/images/adrian.jpg"
-          alt="Adrian"
+          alt="portrait of Adrian"
           className="w-20 rounded-full"
           width={80}
           height={80}
         />
         <h2>Let's connect</h2>
         <p>got an idea? bug to squash? let's chat</p>
-        <p>adrian@viiennella.com</p>
+        <p>mailto:adrian@viiennella.com</p>
         <ul>
           {socials.map(({ id, bg, link, icon, text }) => (
             <li key={id} style={{ backgroundColor: bg }}>
