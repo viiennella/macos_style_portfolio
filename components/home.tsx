@@ -9,7 +9,7 @@ import { Draggable } from "gsap/Draggable";
 import useWindowStore from "@/store/window";
 import useLocationStore from "@/store/location";
 
-gsap.registerPlugin(Draggable);
+gsap.registerPlugin(useGSAP, Draggable);
 
 const projects = locations.work?.children ?? [];
 export default function HomeFolders() {
